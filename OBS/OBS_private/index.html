@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation-de-lappliance" class="md-skip">
+        <a href="#obs-private-instance-installation" class="md-skip">
           Skip to content
         </a>
       
@@ -371,6 +371,46 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#users-management" class="md-nav__link">
+    Users management
+  </a>
+  
+    <nav class="md-nav" aria-label="Users management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creation-dutilisateurs" class="md-nav__link">
+    Création d'utilisateurs
+  </a>
+  
+    <nav class="md-nav" aria-label="Création d'utilisateurs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#donner-le-droit-dadministration-obs" class="md-nav__link">
+    Donner le droit d'administration OBS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ajouter-une-distribution" class="md-nav__link">
+    Ajouter une distribution
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -478,6 +518,46 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#users-management" class="md-nav__link">
+    Users management
+  </a>
+  
+    <nav class="md-nav" aria-label="Users management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creation-dutilisateurs" class="md-nav__link">
+    Création d'utilisateurs
+  </a>
+  
+    <nav class="md-nav" aria-label="Création d'utilisateurs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#donner-le-droit-dadministration-obs" class="md-nav__link">
+    Donner le droit d'administration OBS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ajouter-une-distribution" class="md-nav__link">
+    Ajouter une distribution
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -495,7 +575,7 @@
                   </a>
                 
                 
-                <h1 id="installation-de-lappliance">Installation de l'appliance<a class="headerlink" href="#installation-de-lappliance" title="Permanent link">&para;</a></h1>
+                <h1 id="obs-private-instance-installation">OBS private instance Installation<a class="headerlink" href="#obs-private-instance-installation" title="Permanent link">&para;</a></h1>
 <h2 id="installation-mise-a-jour">Installation / Mise à jour<a class="headerlink" href="#installation-mise-a-jour" title="Permanent link">&para;</a></h2>
 <p>A faire tout de suite après l'installation</p>
 <ul>
@@ -532,16 +612,16 @@ tmpfs                   3.2G     0  3.2G   0% /run/user/1000
   worker_swap_3 OBS -wi-a----- 512.00m                                                     /dev/sda1(33384)
   worker_swap_4 OBS -wi-a----- 512.00m                                                     /dev/sda1(40288)
 </code></pre>
-<h1 id="users-management">users management<a class="headerlink" href="#users-management" title="Permanent link">&para;</a></h1>
-<h2 id="creation-dutilisateurs">Création d'utilisateurs<a class="headerlink" href="#creation-dutilisateurs" title="Permanent link">&para;</a></h2>
+<h2 id="users-management">Users management<a class="headerlink" href="#users-management" title="Permanent link">&para;</a></h2>
+<h3 id="creation-dutilisateurs">Création d'utilisateurs<a class="headerlink" href="#creation-dutilisateurs" title="Permanent link">&para;</a></h3>
 <p>Créer un user via l'interface web https://nuc.mon-lab.org</p>
-<h3 id="donner-le-droit-dadministration-obs">Donner le droit d'administration OBS<a class="headerlink" href="#donner-le-droit-dadministration-obs" title="Permanent link">&para;</a></h3>
+<h4 id="donner-le-droit-dadministration-obs">Donner le droit d'administration OBS<a class="headerlink" href="#donner-le-droit-dadministration-obs" title="Permanent link">&para;</a></h4>
 <p>Pour donner les droits d'admin a un user :</p>
 <pre><code>nuc:~ # cd /srv/www/obs/api
 nuc:/srv/www/obs/api # bundle exec rake user:give_admin_rights mfatrez RAILS_ENV=production
 Making user 'mfatrez' an admin
 </code></pre>
-<h1 id="ajouter-une-distribution">Ajouter une distribution<a class="headerlink" href="#ajouter-une-distribution" title="Permanent link">&para;</a></h1>
+<h2 id="ajouter-une-distribution">Ajouter une distribution<a class="headerlink" href="#ajouter-une-distribution" title="Permanent link">&para;</a></h2>
 <p>récupérer le fichier <a href="https://raw.githubusercontent.com/openSUSE/open-build-service/master/dist/obs_mirror_project">obs_mirror_project</a></p>
 <p>un exemple de obs_mirror_project est présent dans le doc "Build Service Concept CrossDevelopment"</p>
 <p>à lancer avec le user root :</p>
