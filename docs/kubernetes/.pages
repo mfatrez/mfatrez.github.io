@@ -1,0 +1,4 @@
+nav:
+  - Installation k3s : k3s_install.md
+  - Installation k8s : k8s_install.md
+  - Installation rancher : rancher_install.md

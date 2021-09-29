@@ -1,0 +1,32 @@
+site_name: fatrez.fr
+site_url: https://www.fatrez.fr
+repo_url: https://github.com/mfatrez/mfatrez.github.io.git
+docs_dir: docs
+
+markdown_extensions:
+  - toc:
+      permalink: true
+
+plugins:
+  - search:
+      min_search_length: 3
+      prebuild_index: true
+      lang: en
+
+  - awesome-pages:
+      collapse_single_pages: true
+      strict: false
+
+theme:
+  name: material
+  palette:
+    primary: deep blue
+  features:
+    - search.highlight
+    - tabs
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js

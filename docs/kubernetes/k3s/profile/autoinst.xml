@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
+  <general>
+    <mode>
+      <confirm config:type="boolean">false</confirm>
+      <second_stage config:type="boolean">false</second_stage>
+    </mode>
+    <signature-handling>
+      <import_gpg_key config:type="boolean">true</import_gpg_key>
+    </signature-handling>
+  </general>
+  <bootloader>
+    <loader_type>grub2-efi</loader_type>
+    <global>
+      <activate>true</activate>
+      <boot_root>true</boot_root>
+    </global>
+    <device_map config:type="list">
+      <device_map_entry>
+        <firmware>hd0</firmware>
+        <linux>/dev/disk/by-path/platform-fe340000.emmc2</linux>
+      </device_map_entry>
+    </device_map>
+   </bootloader>
+  <add-on>
+    <add_on_others config:type="list">
+      <listentry>
+        <name>repo_oss</name>
+        <alias>openSUSE-MicroOS Pool</alias>
+        <media_url>http://download.opensuse.org/ports/aarch64/tumbleweed/repo/oss/</media_url>
+      </listentry>
+      <listentry>
+        <name>repo_update</name>
+        <alias>openSUSE-MicroOS Update</alias>
+        <media_url>http://download.opensuse.org/ports/aarch64/update/tumbleweed/</media_url>
+      </listentry>
+      <listentry>
+        <name>k3s-install</name>
+        <alias>k3s-install OBS repo</alias>
+        <media_url>http://download.opensuse.org/repositories/devel:/kubic/openSUSE_Factory_ARM/</media_url>
+      </listentry>
+    </add_on_others>
+  </add-on>
+  <keyboard>
+    <keymap>french</keymap>
+  </keyboard>
+  <partitioning config:type="list">
+    <drive>
+      <initialize config:type="boolean">true</initialize>
+      <device>/dev/mmcblk0</device>
+      <use>all</use>
+      <partitions config:type="list">
+        <partition>
+          <mount>/boot/efi</mount>
+          <size>128M</size>
+        </partition>
+        <partition>
+          <mount>/</mount>
+        </partition>
+        <partition>
+          <mount>/var</mount>
+        </partition>
+      </partitions>
+    </drive>
+    <drive>
+      <initialize config:type="boolean">true</initialize>
+      <device>/dev/sda</device>
+      <use>free</use>
+      <partitions config:type="list">
+        <partition>
+          <filesystem config:type="symbol">xfs</filesystem>
+          <mount>/var/lib/rancher</mount>
+          <size>15G</size>
+        </partition>
+        <partition>
+          <filesystem config:type="symbol">xfs</filesystem>
+          <mount>/var/lib/rancher/longhorn</mount>
+          <size>max</size>
+        </partition>
+      </partitions>
+    </drive>
+  </partitioning>
+  <ntp-client>
+    <ntp_policy>auto</ntp_policy>
+    <ntp_servers config:type="list">
+      <ntp_server>
+        <address>fr.pool.ntp.org</address>
+        <iburst config:type="boolean">false</iburst>
+        <offline config:type="boolean">false</offline>
+      </ntp_server>
+    </ntp_servers>
+    <ntp_sync>15</ntp_sync>
+  </ntp-client>
+  <users config:type="list">
+    <user>
+      <username>__USER_USERNAME__</username>
+      <user_password>__USER_PASSWORD__</user_password>
+      <uid>1001</uid>
+      <gid>100</gid>
+      <fullname>__USER_USERNAME__</fullname>
+      <authorized_keys config:type="list">
+        <listentry>__USER_RSA_PUBLIC_KEY__</listentry>
+      </authorized_keys>
+    </user>
+  </users>
+  <software t="map">
+    <install_recommended t="boolean">false</install_recommended>
+    <instsource/>
+    <products t="list">
+      <product>MicroOS</product>
+    </products>
+    <packages t="list">
+      <package>arm-trusted-firmware-rpi4</package>
+      <package>wicked</package>
+      <package>transactional-update</package>
+      <package>shim</package>
+      <package>openssh</package>
+      <package>mokutil</package>
+      <package>kexec-tools</package>
+      <package>grub2-arm64-efi</package>
+      <package>glibc</package>
+      <package>MicroOS-release</package>
+      <package>keepalived</package>
+      <package>haproxy</package>
+      <package>k3s-install</package>
+      <package>etcdctl</package>
+      <package>flannel</package>
+      <package>flannel-k8s-yaml</package>
+      <package>fio</package>
+      <package>open-iscsi</package>
+      <package>nfs-client</package>
+      <package>jq</package>
+      <package>xfsprogs</package>
+    </packages>
+    <patterns t="list">
+      <pattern>bootloader</pattern>
+      <pattern>microos_base</pattern>
+      <pattern>microos_base_zypper</pattern>
+      <pattern>microos_defaults</pattern>
+      <pattern>microos_hardware</pattern>
+      <pattern>microos_selinux</pattern>
+      <pattern>minimal_base</pattern>
+      <pattern>container_runtime</pattern>
+    </patterns>
+  </software>
+  <services-manager>
+    <services>
+      <enable config:type="list">
+        <service>chronyd</service>
+        <service>iscsid</service>
+      </enable>
+    </services>
+  </services-manager>
+  <scripts>
+    <pre-scripts config:type="list">
+      <script>
+        <interpreter>shell</interpreter>
+        <filename>start.sh</filename>
+        <source>
+        <![CDATA[
+#!/bin/sh
+chronyd
+exit 0
+]]>
+        </source>
+      </script>
+    </pre-scripts>
+    <chroot-scripts config:type="list">
+      <script>
+        <chrooted config:type="boolean">true</chrooted>
+        <filename>k3s.sh</filename>
+        <interpreter>shell</interpreter>
+        <source><![CDATA[
+echo "### Allow __USER_USERNAME__ to be root"
+cat <<EOF>/etc/sudoers.d/all_user_root
+__USER_USERNAME__ ALL=(ALL) NOPASSWD: ALL
+EOF
+chmod 600 /etc/sudoers.d/all_user_root
+
+echo "### reset server script"
+cat <<EOF>/usr/local/bin/reset-me-please
+#!/bin/bash
+dd if=/dev/zero of=/dev/sda bs=1M count=1 && sync && sync && sync
+dd if=/dev/zero of=/dev/mmcblk0 bs=1M count=1 && sleep 1 && sync && sync && sync && sleep 1 && echo b > /proc/sysrq-trigger
+EOF
+chmod 700 /usr/local/bin/reset-me-please
+chown root:root /usr/local/bin/reset-me-please
+
+echo "### Remove SELinux because not supported for now"
+sed -i "s/^SELINUX=.*/SELINUX=disabled/" /etc/selinux/config
+
+echo "### Add grub parameters for cgroups"
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=.*/GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1 mitigations=auto systemd.unified_cgroup_hierarchy=1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"/' /etc/default/grub
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+echo "### Configure cgroups v2"
+mkdir -p /etc/systemd/system/user@.service.d
+cat <<EOF>/etc/systemd/system/user@.service.d/delegate.conf
+[Service]
+Delegate=cpu cpuset io memory pids
+EOF
+
+mkdir -p /usr/libexec/kubernetes/kubelet-plugins/volume/exec
+
+]]>
+      </source>
+    </script>
+    </chroot-scripts>
+  </scripts>
+</profile>
