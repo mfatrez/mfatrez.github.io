@@ -1,0 +1,1505 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://www.fatrez.fr/pacemaker/create_cluster/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
+    
+    
+      
+        <title>Create Pacemaker Cluster - fatrez.fr</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.802231af.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-blue" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installation-of-pacemaker-for-hana" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="fatrez.fr" class="md-header__button md-logo" aria-label="fatrez.fr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            fatrez.fr
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Create Pacemaker Cluster
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/mfatrez/mfatrez.github.io.git/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="fatrez.fr" class="md-nav__button md-logo" aria-label="fatrez.fr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    fatrez.fr
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/mfatrez/mfatrez.github.io.git/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        Kubernetes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubernetes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Kubernetes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/k3s_install/" class="md-nav__link">
+        Installation k3s
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/k8s_install/" class="md-nav__link">
+        Installation k8s
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubernetes/rancher_install/" class="md-nav__link">
+        Installation rancher
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        OBS
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="OBS" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          OBS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OBS/" class="md-nav__link">
+        OBS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../OBS/OBS_private/" class="md-nav__link">
+        OBS private instance
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        Pacemaker
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Pacemaker" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Pacemaker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Create Pacemaker Cluster
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Create Pacemaker Cluster
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisite" class="md-nav__link">
+    Prerequisite
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pacemaker-packages-installation-on-both-nodes" class="md-nav__link">
+    Pacemaker packages Installation on both nodes
+  </a>
+  
+    <nav class="md-nav" aria-label="Pacemaker packages Installation on both nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-node-1" class="md-nav__link">
+    On node 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-node-2" class="md-nav__link">
+    On node 2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-ssh-key-for-the-cluster" class="md-nav__link">
+    Generate SSH key for the cluster
+  </a>
+  
+    <nav class="md-nav" aria-label="Generate SSH key for the cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh-user-key" class="md-nav__link">
+    ssh user key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-host-key" class="md-nav__link">
+    ssh host key
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sbd" class="md-nav__link">
+    SBD
+  </a>
+  
+    <nav class="md-nav" aria-label="SBD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identify-stonith-devices" class="md-nav__link">
+    Identify stonith devices
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-watchdog-on-both-nodes" class="md-nav__link">
+    Install watchdog on both nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization-of-the-cluster-infrastructure" class="md-nav__link">
+    Initialization of the cluster infrastructure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#corosyncconf" class="md-nav__link">
+    corosync.conf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restart-the-pacemaker-service-on-node-1" class="md-nav__link">
+    Restart the pacemaker service on node 1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node-2-join-the-cluster" class="md-nav__link">
+    NODE 2 join the cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-configuration" class="md-nav__link">
+    Check the configuration
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uncluster_an_existing_system/" class="md-nav__link">
+        Uncluster Pacemaker Cluster
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisite" class="md-nav__link">
+    Prerequisite
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pacemaker-packages-installation-on-both-nodes" class="md-nav__link">
+    Pacemaker packages Installation on both nodes
+  </a>
+  
+    <nav class="md-nav" aria-label="Pacemaker packages Installation on both nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-node-1" class="md-nav__link">
+    On node 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-node-2" class="md-nav__link">
+    On node 2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-ssh-key-for-the-cluster" class="md-nav__link">
+    Generate SSH key for the cluster
+  </a>
+  
+    <nav class="md-nav" aria-label="Generate SSH key for the cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh-user-key" class="md-nav__link">
+    ssh user key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-host-key" class="md-nav__link">
+    ssh host key
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sbd" class="md-nav__link">
+    SBD
+  </a>
+  
+    <nav class="md-nav" aria-label="SBD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identify-stonith-devices" class="md-nav__link">
+    Identify stonith devices
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-watchdog-on-both-nodes" class="md-nav__link">
+    Install watchdog on both nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialization-of-the-cluster-infrastructure" class="md-nav__link">
+    Initialization of the cluster infrastructure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#corosyncconf" class="md-nav__link">
+    corosync.conf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restart-the-pacemaker-service-on-node-1" class="md-nav__link">
+    Restart the pacemaker service on node 1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node-2-join-the-cluster" class="md-nav__link">
+    NODE 2 join the cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-configuration" class="md-nav__link">
+    Check the configuration
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/mfatrez/mfatrez.github.io.git/edit/master/docs/pacemaker/create_cluster.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="installation-of-pacemaker-for-hana">Installation of pacemaker for HANA<a class="headerlink" href="#installation-of-pacemaker-for-hana" title="Permanent link">&para;</a></h1>
+<h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">&para;</a></h2>
+<p>2 cluster nodes must have :</p>
+<ul>
+<li>the same level of patchs (kernel, packages, ...)</li>
+<li>the same number of intalled packages</li>
+<li>the same number of enabled and disabled services</li>
+<li>3 networks interfaces (for Public, for Replication and for High Availability)</li>
+<li>for the stonith : at least 2 Luns of 64mb for the storage</li>
+</ul>
+<h2 id="pacemaker-packages-installation-on-both-nodes">Pacemaker packages Installation on both nodes<a class="headerlink" href="#pacemaker-packages-installation-on-both-nodes" title="Permanent link">&para;</a></h2>
+<p>To install the HA stack on both cluster nodes, you need to install the pattern ha_sles and the resource agents SAPHanaSR</p>
+<h3 id="on-node-1">On node 1<a class="headerlink" href="#on-node-1" title="Permanent link">&para;</a></h3>
+<p>Install the ha_sles pattern :</p>
+<pre><code>node01:~ # zypper in -t pattern ha_sles
+Refreshing service 'SUSE_Linux_Enterprise_Server_for_SAP_Applications_12_SP1_x86_64'.
+Loading repository data...
+Reading installed packages...
+Resolving package dependencies...
+
+The following 77 NEW packages are going to be installed:
+  cluster-glue conntrack-tools corosync crmsh crmsh-scripts csync2 ctdb dlm-kmp-default drbd
+  drbd-kmp-default drbd-utils fence-agents graphviz graphviz-gd graphviz-gnome
+  ha-cluster-bootstrap hawk2 ipvsadm ldirectord libcorosync4 libdlm libdlm3 libglue2 libnet9
+  libnetfilter_cthelper0 libnetfilter_cttimeout1 libnetfilter_queue1 libpacemaker3 libqb0
+  librsync1 lvm2-clvm lvm2-cmirrord ocfs2-kmp-default ocfs2-tools pacemaker pacemaker-cli
+  patterns-ha-ha_sles perl-Encode-Locale perl-File-Listing perl-HTML-Parser perl-HTML-Tagset
+  perl-HTTP-Cookies perl-HTTP-Daemon perl-HTTP-Date perl-HTTP-Message perl-HTTP-Negotiate
+  perl-IO-HTML perl-IO-Socket-INET6 perl-IO-Socket-SSL perl-LWP-MediaTypes
+  perl-LWP-Protocol-https perl-MailTools perl-Net-HTTP perl-Net-SSLeay perl-Socket6
+  perl-TimeDate perl-WWW-RobotRules perl-libwww-perl pssh python-curses python-dateutil
+  python-lxml python-parallax python-pexpect python-pssh python-suds release-notes-ha
+  resource-agents ruby2.1-rubygem-bundler sbd sle-ha-guide_en-pdf sle-ha-manuals_en
+  sle-ha-nfs-quick_en-pdf tdb-tools yast2-cluster yast2-drbd yast2-iplb
+
+The following NEW pattern is going to be installed:
+  ha_sles
+
+The following 15 recommended packages were automatically selected:
+  crmsh fence-agents graphviz-gd graphviz-gnome hawk2 libdlm ocfs2-kmp-default ocfs2-tools
+  perl-IO-Socket-SSL perl-LWP-Protocol-https perl-TimeDate sbd sle-ha-guide_en-pdf
+  sle-ha-manuals_en sle-ha-nfs-quick_en-pdf
+
+77 new packages to install.
+Overall download size: 44.5 MiB. Already cached: 0 B. After the operation, additional 102.8
+MiB will be used.
+Continue? [y/n/? shows all options] (y): y
+Retrieving package dlm-kmp-default-4.0.2_k3.12.49_11-33.18.x86_64
+                                                      (1/77),  93.0 KiB (298.2 KiB unpacked)
+Retrieving: dlm-kmp-default-4.0.2_k3.12.49_11-33.18.x86_64.rpm .......................[done]
+[...]
+(72/77) Installing: pacemaker-cli-1.1.13-20.1.x86_64 .................................[done]
+Additional rpm output:
+Updating /etc/sysconfig/pacemaker...
+Updating /etc/sysconfig/pacemaker...
+
+
+(73/77) Installing: pacemaker-1.1.13-20.1.x86_64 .....................................[done]
+(74/77) Installing: crmsh-2.2.1-23.2.noarch ..........................................[done]
+(75/77) Installing: hawk2-1.0.1+git.1456406635.49e230d-18.1.x86_64 ...................[done]
+(76/77) Installing: ha-cluster-bootstrap-0.4+git.1441350120.8e9abbe-7.1.noarch .......[done]
+(77/77) Installing: patterns-ha-ha_sles-12-9.1.x86_64 ................................[done]
+</code></pre>
+<p>Now install the SAPHanaSR and documentation package :</p>
+<pre><code>node01:~ # zypper in SAPHanaSR SAPHanaSR-doc
+Refreshing service 'SUSE_Linux_Enterprise_Server_for_SAP_Applications_12_SP1_x86_64'.
+Loading repository data...
+Reading installed packages...
+Resolving package dependencies...
+
+The following 2 NEW packages are going to be installed:
+  SAPHanaSR SAPHanaSR-doc
+
+2 new packages to install.
+Overall download size: 91.6 KiB. Already cached: 0 B. After the operation, additional 241.4
+KiB will be used.
+Continue? [y/n/? shows all options] (y): y
+Retrieving package SAPHanaSR-0.152.21-1.1.noarch       (1/2),  50.2 KiB (206.0 KiB unpacked)
+Retrieving: SAPHanaSR-0.152.21-1.1.noarch.rpm ........................................[done]
+Retrieving package SAPHanaSR-doc-0.152.21-1.1.noarch   (2/2),  41.4 KiB ( 35.4 KiB unpacked)
+Retrieving: SAPHanaSR-doc-0.152.21-1.1.noarch.rpm ....................................[done]
+Checking for file conflicts: .........................................................[done]
+(1/2) Installing: SAPHanaSR-0.152.21-1.1.noarch ......................................[done]
+(2/2) Installing: SAPHanaSR-doc-0.152.21-1.1.noarch ..................................[done]
+node02:~ # zypper in SAPHanaSR SAPHanaSR-doc
+Refreshing service 'SUSE_Linux_Enterprise_Server_for_SAP_Applications_12_SP1_x86_64'.
+Loading repository data...
+Reading installed packages...
+Resolving package dependencies...
+
+The following 2 NEW packages are going to be installed:
+  SAPHanaSR SAPHanaSR-doc
+
+2 new packages to install.
+Overall download size: 91.6 KiB. Already cached: 0 B. After the operation, additional 241.4
+KiB will be used.
+Continue? [y/n/? shows all options] (y): y
+Retrieving package SAPHanaSR-0.152.21-1.1.noarch       (1/2),  50.2 KiB (206.0 KiB unpacked)
+Retrieving: SAPHanaSR-0.152.21-1.1.noarch.rpm ........................................[done]
+Retrieving package SAPHanaSR-doc-0.152.21-1.1.noarch   (2/2),  41.4 KiB ( 35.4 KiB unpacked)
+Retrieving: SAPHanaSR-doc-0.152.21-1.1.noarch.rpm ....................................[done]
+Checking for file conflicts: .........................................................[done]
+(1/2) Installing: SAPHanaSR-0.152.21-1.1.noarch ......................................[done]
+(2/2) Installing: SAPHanaSR-doc-0.152.21-1.1.noarch ..................................[done]
+</code></pre>
+<h3 id="on-node-2">On node 2<a class="headerlink" href="#on-node-2" title="Permanent link">&para;</a></h3>
+<p>Same operation as previous :</p>
+<pre><code>node02:~ # zypper in -t pattern ha_sles
+Refreshing service 'SUSE_Linux_Enterprise_Server_for_SAP_Applications_12_SP1_x86_64'.
+Loading repository data...
+Reading installed packages...
+Resolving package dependencies...
+
+The following 77 NEW packages are going to be installed:
+  cluster-glue conntrack-tools corosync crmsh crmsh-scripts csync2 ctdb dlm-kmp-default drbd
+  drbd-kmp-default drbd-utils fence-agents graphviz graphviz-gd graphviz-gnome
+  ha-cluster-bootstrap hawk2 ipvsadm ldirectord libcorosync4 libdlm libdlm3 libglue2 libnet9
+  libnetfilter_cthelper0 libnetfilter_cttimeout1 libnetfilter_queue1 libpacemaker3 libqb0
+  librsync1 lvm2-clvm lvm2-cmirrord ocfs2-kmp-default ocfs2-tools pacemaker pacemaker-cli
+  patterns-ha-ha_sles perl-Encode-Locale perl-File-Listing perl-HTML-Parser perl-HTML-Tagset
+  perl-HTTP-Cookies perl-HTTP-Daemon perl-HTTP-Date perl-HTTP-Message perl-HTTP-Negotiate
+  perl-IO-HTML perl-IO-Socket-INET6 perl-IO-Socket-SSL perl-LWP-MediaTypes
+  perl-LWP-Protocol-https perl-MailTools perl-Net-HTTP perl-Net-SSLeay perl-Socket6
+  perl-TimeDate perl-WWW-RobotRules perl-libwww-perl pssh python-curses python-dateutil
+  python-lxml python-parallax python-pexpect python-pssh python-suds release-notes-ha
+  resource-agents ruby2.1-rubygem-bundler sbd sle-ha-guide_en-pdf sle-ha-manuals_en
+  sle-ha-nfs-quick_en-pdf tdb-tools yast2-cluster yast2-drbd yast2-iplb
+
+The following NEW pattern is going to be installed:
+  ha_sles
+
+The following 15 recommended packages were automatically selected:
+  crmsh fence-agents graphviz-gd graphviz-gnome hawk2 libdlm ocfs2-kmp-default ocfs2-tools
+  perl-IO-Socket-SSL perl-LWP-Protocol-https perl-TimeDate sbd sle-ha-guide_en-pdf
+  sle-ha-manuals_en sle-ha-nfs-quick_en-pdf
+
+77 new packages to install.
+Overall download size: 44.5 MiB. Already cached: 0 B. After the operation, additional 102.8
+MiB will be used.
+Continue? [y/n/? shows all options] (y): y
+Retrieving package dlm-kmp-default-4.0.2_k3.12.49_11-33.18.x86_64
+                                                      (1/77),  93.0 KiB (298.2 KiB unpacked)
+Retrieving: dlm-kmp-default-4.0.2_k3.12.49_11-33.18.x86_64.rpm .......................[done]
+[...]
+(72/77) Installing: pacemaker-cli-1.1.13-20.1.x86_64 .................................[done]
+Additional rpm output:
+Updating /etc/sysconfig/pacemaker...
+Updating /etc/sysconfig/pacemaker...
+
+
+(73/77) Installing: pacemaker-1.1.13-20.1.x86_64 .....................................[done]
+(74/77) Installing: crmsh-2.2.1-23.2.noarch ..........................................[done]
+(75/77) Installing: hawk2-1.0.1+git.1456406635.49e230d-18.1.x86_64 ...................[done]
+(76/77) Installing: ha-cluster-bootstrap-0.4+git.1441350120.8e9abbe-7.1.noarch .......[done]
+(77/77) Installing: patterns-ha-ha_sles-12-9.1.x86_64 ................................[done]
+</code></pre>
+<p>Same for resource agent package :</p>
+<pre><code>node02:~ # zypper in SAPHanaSR SAPHanaSR-doc
+Refreshing service 'SUSE_Linux_Enterprise_Server_for_SAP_Applications_12_SP1_x86_64'.
+Loading repository data...
+Reading installed packages...
+Resolving package dependencies...
+
+The following 2 NEW packages are going to be installed:
+  SAPHanaSR SAPHanaSR-doc
+
+2 new packages to install.
+Overall download size: 91.6 KiB. Already cached: 0 B. After the operation, additional 241.4
+KiB will be used.
+Continue? [y/n/? shows all options] (y): y
+Retrieving package SAPHanaSR-0.152.21-1.1.noarch       (1/2),  50.2 KiB (206.0 KiB unpacked)
+Retrieving: SAPHanaSR-0.152.21-1.1.noarch.rpm ........................................[done]
+Retrieving package SAPHanaSR-doc-0.152.21-1.1.noarch   (2/2),  41.4 KiB ( 35.4 KiB unpacked)
+Retrieving: SAPHanaSR-doc-0.152.21-1.1.noarch.rpm ....................................[done]
+Checking for file conflicts: .........................................................[done]
+(1/2) Installing: SAPHanaSR-0.152.21-1.1.noarch ......................................[done]
+(2/2) Installing: SAPHanaSR-doc-0.152.21-1.1.noarch ..................................[done]
+</code></pre>
+<h2 id="generate-ssh-key-for-the-cluster">Generate SSH key for the cluster<a class="headerlink" href="#generate-ssh-key-for-the-cluster" title="Permanent link">&para;</a></h2>
+<p>The pacemaker cluster need to communicate through the root user. It's necessary to generate them with the command line bellow :</p>
+<pre><code>node01:~ # ssh-keygen -t rsa -b 2048
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+5d:42:1b:96:49:62:30:2e:c2:95:73:0c:98:4a:7e:9a [MD5] root@node01
+The key's randomart image is:
++--[ RSA 2048]----+
+|   oo+o.o.=o     |
+| oo.o.oo +oo     |
+|o.o .o.   o .    |
+|.. o .   . o     |
+|  +     S .      |
+| E               |
+|                 |
+|                 |
+|                 |
++--[MD5]----------+
+</code></pre>
+<p>From the end-user view, it's necessary to have the same ssh user and ssh host keys. For that, we need to copy files from node1 to node2.</p>
+<h3 id="ssh-user-key">ssh user key<a class="headerlink" href="#ssh-user-key" title="Permanent link">&para;</a></h3>
+<p>Copy from node1 to node2 of the ssh user key</p>
+<pre><code>node01:~ # scp -r .ssh node02:
+Password:
+known_hosts                                               100%  548     0.5KB/s   00:00
+id_rsa                                                    100% 1675     1.6KB/s   00:00
+id_rsa.pub                                                100%  397     0.4KB/s   00:00
+</code></pre>
+<p>Authorize the root's user key to connect without password</p>
+<pre><code>node01:~ # cp .ssh/id_rsa.pub .ssh/authorized_keys
+node02:~ # cp .ssh/id_rsa.pub .ssh/authorized_keys
+</code></pre>
+<h3 id="ssh-host-key">ssh host key<a class="headerlink" href="#ssh-host-key" title="Permanent link">&para;</a></h3>
+<p>Copy ssh_host key from node1 to node2</p>
+<pre><code>node01:/etc/ssh # scp ssh_host_* node02:/etc/ssh
+ssh_host_dsa_key                                          100%  668     0.7KB/s   00:00
+ssh_host_dsa_key.pub                                      100%  605     0.6KB/s   00:00
+ssh_host_ecdsa_key                                        100%  227     0.2KB/s   00:00
+ssh_host_ecdsa_key.pub                                    100%  177     0.2KB/s   00:00
+ssh_host_ed25519_key                                      100%  411     0.4KB/s   00:00
+ssh_host_ed25519_key.pub                                  100%   97     0.1KB/s   00:00
+ssh_host_key                                              100%  980     1.0KB/s   00:00
+ssh_host_key.pub                                          100%  645     0.6KB/s   00:00
+ssh_host_rsa_key                                          100% 1675     1.6KB/s   00:00
+ssh_host_rsa_key.pub                                      100%  397     0.4KB/s   00:00
+</code></pre>
+<h2 id="sbd">SBD<a class="headerlink" href="#sbd" title="Permanent link">&para;</a></h2>
+<p>To have a supported cluster, it's mandatory to have a valid fence method. The method used is SBD.
+First, we need to identify theses disks.</p>
+<h3 id="identify-stonith-devices">Identify stonith devices<a class="headerlink" href="#identify-stonith-devices" title="Permanent link">&para;</a></h3>
+<pre><code>node01:~ # ll /dev/disk/by-id/scsi-1HITACHI*
+lrwxrwxrwx 1 root root 9 Jan 16 15:36 /dev/disk/by-id/scsi-1HITACHI_5040A76500F0 -&gt; ../../sdd
+lrwxrwxrwx 1 root root 9 Jan 16 15:36 /dev/disk/by-id/scsi-1HITACHI_5040A76500F1 -&gt; ../../sde
+node02:~ # ll /dev/disk/by-id/scsi-1HITACHI*
+lrwxrwxrwx 1 root root 9 Jan 16 15:35 /dev/disk/by-id/scsi-1HITACHI_5040A76500F0 -&gt; ../../sdd
+lrwxrwxrwx 1 root root 9 Jan 16 15:35 /dev/disk/by-id/scsi-1HITACHI_5040A76500F1 -&gt; ../../sde
+</code></pre>
+<h3 id="install-watchdog-on-both-nodes">Install watchdog on both nodes<a class="headerlink" href="#install-watchdog-on-both-nodes" title="Permanent link">&para;</a></h3>
+<p>Before running the initialization of the cluster with the ha-cluster-init command, it's necessary to load the watchdog module. This operation is needed on both nodes :</p>
+<pre><code>node01:~ # echo softdog &gt; /etc/modules-load.d/watchdog.conf
+node01:~ # modprobe softdog
+node02:~ # echo softdog &gt; /etc/modules-load.d/watchdog.conf
+node02:~ # modprobe softdog
+</code></pre>
+<h2 id="initialization-of-the-cluster-infrastructure">Initialization of the cluster infrastructure<a class="headerlink" href="#initialization-of-the-cluster-infrastructure" title="Permanent link">&para;</a></h2>
+<p>To initialize the cluster, we have to answer some question from the ha-cluster-init script.
+* "Network address to bind to" is the network address of the HA Network (private network for corosync).
+* multicast is not used, so valid the default answer. We will remove them after the end of the script.
+* you can put only 1 sbd device to the question : "Path to storage device". We will add the second after the end of the script.</p>
+<pre><code>node01:~ # ha-cluster-init
+  Enabling sshd.service
+  /root/.ssh/id_rsa already exists - overwrite? [y/N] N
+  Configuring csync2
+  Generating csync2 shared key (this may take a while)...done
+  Enabling csync2.socket
+  csync2 checking files
+
+Configure Corosync:
+  This will configure the cluster messaging layer.  You will need
+  to specify a network address over which to communicate (default
+  is eth0's network, but you can use the network address of any
+  active interface), a multicast address and multicast port.
+
+  Network address to bind to (e.g.: 192.168.1.0) [10.117.158.0] 192.168.254.0
+  Multicast address (e.g.: 239.x.x.x) [239.97.213.131]
+  Multicast port [5405]
+
+Configure SBD:
+  If you have shared storage, for example a SAN or iSCSI target,
+  you can use it avoid split-brain scenarios by configuring SBD.
+  This requires a 1 MB partition, accessible to all nodes in the
+  cluster.  The device path must be persistent and consistent
+  across all nodes in the cluster, so /dev/disk/by-id/* devices
+  are a good choice.  Note that all data on the partition you
+  specify here will be destroyed.
+
+  Do you wish to use SBD? [y/N] y
+  Path to storage device (e.g. /dev/disk/by-id/...) [] /dev/disk/by-id/scsi-1HITACHI_5040A76500F0
+  All data on /dev/disk/by-id/scsi-1HITACHI_5040A76500F0 will be destroyed
+  Are you sure you wish to use this device [y/N] y
+  Initializing SBD......done
+  Enabling hawk.service
+    HA Web Konsole is now running, to see cluster status go to:
+      https://10.117.158.11:7630/
+    Log in with username 'hacluster', password 'linux'
+WARNING: You should change the hacluster password to something more secure!
+  Enabling pacemaker.service
+  Waiting for cluster........done
+  Loading initial configuration
+
+Configure Administration IP Address:
+  Optionally configure an administration virtual IP
+  address. The purpose of this IP address is to
+  provide a single IP that can be used to interact
+  with the cluster, rather than using the IP address
+  of any specific cluster node.
+
+  Do you wish to configure an administration IP? [y/N] N
+  Done (log saved to /var/log/ha-cluster-bootstrap.log)
+</code></pre>
+<p>To add the second SBD device, you have to stop the pacemaker service and modify the sbd stored in /etc/sysconfig.</p>
+<p>Stop pacemaker, and modify the configuration to done all modification.</p>
+<pre><code>node01:~ # service pacemaker stop
+</code></pre>
+<p>Create the new sbd device on the second LUN</p>
+<pre><code>node01:~ # sbd -d /dev/disk/by-id/scsi-1HITACHI_5040A76500F1 create
+Initializing device /dev/disk/by-id/scsi-1HITACHI_5040A76500F1
+Creating version 2.1 header on device 4 (uuid: a3012040-64bd-4e9b-8260-47a0eae4d19d)
+Initializing 255 slots on device 4
+Device /dev/disk/by-id/scsi-1HITACHI_5040A76500F1 is initialized.
+node01:~ # sbd -d /dev/disk/by-id/scsi-1HITACHI_5040A76500F1 allocate node01
+Trying to allocate slot for node01 on device /dev/disk/by-id/scsi-1HITACHI_5040A76500F1.
+slot 0 is unused - trying to own
+Slot for node01 has been allocated on /dev/disk/by-id/scsi-1HITACHI_5040A76500F1.
+
+node01:~ # sbd -d /dev/disk/by-id/scsi-1HITACHI_5040A76500F1 list
+0       node01      clear
+</code></pre>
+<p>Edit the /etc/sysconfig/sbd configuration file to add the new Stonith device :</p>
+<pre><code>vi /etc/sysconfig/sbd
+Change the line below
+SBD_DEVICE=&quot;/dev/disk/by-id/scsi-1HITACHI_5040A76500F0&quot;
+to add the new Stonith device (separate with ;)
+SBD_DEVICE=&quot;/dev/disk/by-id/scsi-1HITACHI_5040A76500F0; /dev/disk/by-id/scsi-1HITACHI_5040A76500F1&quot;
+</code></pre>
+<p>Then edit /etc/corosync/corosync.conf and remove lines mcast.* inside the 'interface' and add the unicast configuration.</p>
+<pre><code>        interface {
+                ringnumber:     0
+                bindnetaddr:    192.168.254.0
+                mcastaddr:      239.97.213.131 &lt;- remove this line
+                mcastport:      5405 &lt;- remove this line
+                ttl:            1
+        }
+        transport: udpu &lt;- add this line
+</code></pre>
+<p>add node list between § totem and § logging</p>
+<pre><code>nodelist {
+        node {
+                ring0_addr: 192.168.254.14
+        }
+        node {
+                ring0_addr: 192.168.254.15
+        }
+}
+</code></pre>
+<p>put the correct configuration for the quorum : remove  expected_votes: 1 and set two_node to 1</p>
+<pre><code>quorum {
+        # Enable and configure quorum subsystem (default: off)
+        # see also corosync.conf.5 and votequorum.5
+        provider: corosync_votequorum
+        two_node: 1
+}
+</code></pre>
+<h2 id="corosyncconf">corosync.conf<a class="headerlink" href="#corosyncconf" title="Permanent link">&para;</a></h2>
+<p>This file is the result of all modification above.</p>
+<pre><code>node01:/etc/corosync # cat corosync.conf
+# Please read the corosync.conf.5 manual page
+
+totem {
+        version:        2
+        secauth:        off
+        cluster_name:   hacluster
+        clear_node_high_bit: yes
+
+# Following are old corosync 1.4.x defaults from SLES
+#       token:          5000
+#       token_retransmits_before_loss_const: 10
+#       join:           60
+#       consensus:      6000
+#       vsftype:        none
+#       max_messages:   20
+#       threads:        0
+
+        crypto_cipher:  none
+        crypto_hash:    none
+
+        interface {
+                ringnumber:     0
+                bindnetaddr:    192.168.254.0
+                ttl:            1
+        }
+        transport: udpu
+}
+nodelist {
+        node {
+                ring0_addr: 192.168.254.14
+        }
+        node {
+                ring0_addr: 192.168.254.15
+        }
+}
+logging {
+        fileline:       off
+        to_stderr:      no
+        to_logfile:     no
+        logfile:        /var/log/cluster/corosync.log
+        to_syslog:      yes
+        debug:          off
+        timestamp:      on
+        logger_subsys {
+                subsys: QUORUM
+                debug:  off
+        }
+}
+quorum {
+        # Enable and configure quorum subsystem (default: off)
+        # see also corosync.conf.5 and votequorum.5
+        provider: corosync_votequorum
+        two_node: 1
+}
+</code></pre>
+<h2 id="restart-the-pacemaker-service-on-node-1">Restart the pacemaker service on node 1<a class="headerlink" href="#restart-the-pacemaker-service-on-node-1" title="Permanent link">&para;</a></h2>
+<pre><code>node01:/etc/corosync # service pacemaker start
+</code></pre>
+<h2 id="node-2-join-the-cluster">NODE 2 join the cluster<a class="headerlink" href="#node-2-join-the-cluster" title="Permanent link">&para;</a></h2>
+<p>Run the ha-cluster-join script on the second node and enter the IP of the configured node.
+No need to generate the ssh keys. It's already done.</p>
+<pre><code>node02:~ # ha-cluster-join
+
+Join This Node to Cluster:
+  You will be asked for the IP address of an existing node, from which
+  configuration will be copied.  If you have not already configured
+  passwordless ssh between nodes, you will be prompted for the root
+  password of the existing node.
+
+  IP address or hostname of existing node (e.g.: 192.168.1.1) [] 192.168.254.14
+  Enabling sshd.service
+  Retrieving SSH keys from 192.168.254.14
+  /root/.ssh/id_rsa already exists - overwrite? [y/N] N
+  No new SSH keys installed
+  Configuring csync2
+  Enabling csync2.socket
+  Merging known_hosts
+  Probing for new partitions......done
+/usr/sbin/ha-cluster-join: line 209: [: -eq: unary operator expected
+  Enabling hawk.service
+    HA Web Konsole is now running, to see cluster status go to:
+      https://10.117.158.17:7630/
+    Log in with username 'hacluster', password 'linux'
+WARNING: You should change the hacluster password to something more secure!
+  Enabling pacemaker.service
+  Waiting for cluster....done
+  Done (log saved to /var/log/ha-cluster-bootstrap.log)
+</code></pre>
+<h2 id="check-the-configuration">Check the configuration<a class="headerlink" href="#check-the-configuration" title="Permanent link">&para;</a></h2>
+<pre><code>node01:~ # crm_mon -rADf1
+Online: [ node01 node02 ]
+
+Full list of resources:
+
+ stonith-sbd    (stonith:external/sbd): Started node01
+
+Node Attributes:
+* Node node01:
+* Node node02:
+
+Migration Summary:
+* Node node01:
+* Node node02:
+</code></pre>
+<h1 id="check-hana-version">Check hana version<a class="headerlink" href="#check-hana-version" title="Permanent link">&para;</a></h1>
+<p>Must be done by SAP Team, as sidadm</p>
+<pre><code>node01:~ # su - mfzadm
+mfzadm@node01:/usr/sap/MFZ/HDB00&gt; HDB version
+HDB version info:
+  version:             2.00.022.00.1511184640
+  branch:              fa/hana2sp02
+  git hash:            eeeca63c40ee9d73b6bdd41e42b1ded3bf7e16f7
+  git merge time:      2017-11-20 14:30:40
+  weekstone:           0000.00.0
+  compile date:        2017-11-20 14:37:21
+  compile host:        ld4552
+  compile type:        rel
+</code></pre>
+<pre><code>node02:~ # su - mfzadm
+mfzadm@node02:/usr/sap/MFZ/HDB00&gt; HDB version
+HDB version info:
+  version:             2.00.022.00.1511184640
+  branch:              fa/hana2sp02
+  git hash:            eeeca63c40ee9d73b6bdd41e42b1ded3bf7e16f7
+  git merge time:      2017-11-20 14:30:40
+  weekstone:           0000.00.0
+  compile date:        2017-11-20 14:37:21
+  compile host:        ld4552
+  compile type:        rel
+</code></pre>
+<h2 id="setting-up-hana-replication-on-master-node">Setting up Hana replication on master node<a class="headerlink" href="#setting-up-hana-replication-on-master-node" title="Permanent link">&para;</a></h2>
+<p>Must be done by SAP Team, as sidadm</p>
+<pre><code>mfzadm@node01:/usr/sap/MFZ&gt; hdbnsutil -sr_enable --name=MFZ_node1
+checking for active nameserver ...
+nameserver is active, proceeding ...
+successfully enabled system as system replication source site
+done.
+</code></pre>
+<h2 id="copy-ssfs-key-on-slave-node">Copy SSFS key on slave node<a class="headerlink" href="#copy-ssfs-key-on-slave-node" title="Permanent link">&para;</a></h2>
+<p>Must be done by SAP Team, as sidadm</p>
+<pre><code>node01:~ # scp /usr/sap/MFZ/SYS/global/security/rsecssfs/data/SSFS_MFZ.DAT node02:/usr/sap/MFZ/SYS/global/security/rsecssfs/data/
+SSFS_MFZ.DAT                                              100% 2960     2.9KB/s   00:00
+node01:~ # scp /usr/sap/MFZ/SYS/global/security/rsecssfs/key/SSFS_MFZ.KEY node02:/usr/sap/MFZ/SYS/global/security/rsecssfs/key
+SSFS_MFZ.KEY                                              100%  187     0.2KB/s   00:00
+</code></pre>
+<h2 id="modify-globalini-to-add-ip-address-and-node-name-used-by-hsr">Modify global.ini to add ip address and node name used by HSR<a class="headerlink" href="#modify-globalini-to-add-ip-address-and-node-name-used-by-hsr" title="Permanent link">&para;</a></h2>
+<p>Must be done by SAP Team, as sidadm</p>
+<pre><code>mfzadm@node01:/usr/sap/MFZ&gt; cdcoc
+mfzadm@node01:/usr/sap/MFZ/SYS/global/hdb/custom/config&gt; vi global.ini
+[...]
+
+[system_replication_hostname_resolution]
+192.168.253.14 = node01
+192.168.253.15 = node02
+</code></pre>
+<pre><code>mfzadm@node02:/usr/sap/MFZ&gt; cdcoc
+mfzadm@node02:/usr/sap/MFZ/SYS/global/hdb/custom/config&gt; vi global.ini
+[...]
+
+[system_replication_hostname_resolution]
+192.168.253.14 = node01
+192.168.253.15 = node02
+</code></pre>
+<h2 id="activate-hana-replication-on-slave-node">Activate Hana replication on slave node<a class="headerlink" href="#activate-hana-replication-on-slave-node" title="Permanent link">&para;</a></h2>
+<p>Must be done by SAP Team, as sidadm</p>
+<pre><code>mfzadm@node02:/usr/sap/MFZ&gt; HDB stop
+hdbdaemon will wait maximal 300 seconds for NewDB services finishing.
+Stopping instance using: /usr/sap/MFZ/SYS/exe/hdb/sapcontrol -prot NI_HTTP -nr 00 -function Stop 400
+
+17.01.2018 09:34:14
+Stop
+OK
+Waiting for stopped instance using: /usr/sap/MFZ/SYS/exe/hdb/sapcontrol -prot NI_HTTP -nr 00 -function WaitforStopped 600 2
+
+
+17.01.2018 09:34:48
+WaitforStopped
+OK
+hdbdaemon is stopped.
+</code></pre>
+<p>Must be done by SAP Team, as sidadm</p>
+<pre><code>mfzadm@node02:/usr/sap/MFZ&gt; hdbnsutil -sr_register --remoteHost=node01 --remoteInstance=00 --replicationMode=sync --name=MFZ_node2 --operationMode=delta_datashipping --force_full_replica
+adding site ...
+checking for inactive nameserver ...
+nameserver node02:30001 not responding.
+collecting information ...
+updating local ini files ...
+done.
+</code></pre>
+<p>Must be done by SAP Team, as sidadm</p>
+<pre><code>mfzadm@node02:/usr/sap/MFZ/SYS/global/hdb/custom/config&gt; HDB start
+
+
+StartService
+Impromptu CCC initialization by 'rscpCInit'.
+  See SAP note 1266393.
+OK
+OK
+Starting instance using: /usr/sap/MFZ/SYS/exe/hdb/sapcontrol -prot NI_HTTP -nr 00 -function StartWait 2700 2
+
+
+17.01.2018 09:48:07
+Start
+OK
+
+17.01.2018 09:48:57
+StartWait
+OK
+</code></pre>
+<h2 id="check-hana-replication-on-master-node-during-the-force_full_replica">Check Hana replication on master node [during the force_full_replica]<a class="headerlink" href="#check-hana-replication-on-master-node-during-the-force_full_replica" title="Permanent link">&para;</a></h2>
+<pre><code>node01:~ # su - mfzadm
+mfzadm@node01:/usr/sap/MFZ&gt; cdpy
+mfzadm@node01:/usr/sap/MFZ/HDB00&gt; cdpy
+mfzadm@node01:/usr/sap/MFZ/HDB00/exe/python_support&gt; python systemReplicationStatus.py
+| Database | Host       | Port  | Service Name | Volume ID | Site ID | Site Name | Secondary  | Secondary | Secondary | Secondary | Secondary     | Replication | Replication  | Replication                         |
+|          |            |       |              |           |         |           | Host       | Port      | Site ID   | Site Name | Active Status | Mode        | Status       | Status Details                      |
+| -------- | ---------- | ----- | ------------ | --------- | ------- | --------- | ---------- | --------- | --------- | --------- | ------------- | ----------- | ------------ | ----------------------------------- |
+| SYSTEMDB | node01 | 30001 | nameserver   |         1 |       1 | MFZ_node1 | node02 |     30001 |         2 | MFZ_node2 | YES           | SYNC        | ACTIVE       |                                     |
+| MTD      | node01 | 30043 | indexserver  |         2 |       1 | MFZ_node1 | node02 |     30043 |         2 | MFZ_node2 | YES           | SYNC        | INITIALIZING | Full Replica: 47 % (40992/85488 MB) |
+
+status system replication site &quot;2&quot;: INITIALIZING
+overall system replication status: INITIALIZING
+
+Local System Replication State
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mode: PRIMARY
+site id: 1
+site name: MFZ_node1
+</code></pre>
+<h2 id="check-hana-replication-on-master-node-force_full_replica-end">Check Hana replication on master node [force_full_replica end]<a class="headerlink" href="#check-hana-replication-on-master-node-force_full_replica-end" title="Permanent link">&para;</a></h2>
+<pre><code>mfzadm@node01:/usr/sap/MFZ/HDB00/exe/python_support&gt; python systemReplicationStatus.py
+| Database | Host       | Port  | Service Name | Volume ID | Site ID | Site Name | Secondary  | Secondary | Secondary | Secondary | Secondary     | Replication | Replication | Replication    |
+|          |            |       |              |           |         |           | Host       | Port      | Site ID   | Site Name | Active Status | Mode        | Status      | Status Details |
+| -------- | ---------- | ----- | ------------ | --------- | ------- | --------- | ---------- | --------- | --------- | --------- | ------------- | ----------- | ----------- | -------------- |
+| SYSTEMDB | node01 | 30001 | nameserver   |         1 |       1 | MFZ_node1 | node02 |     30001 |         2 | MFZ_node2 | YES           | SYNC        | ACTIVE      |                |
+| MTD      | node01 | 30043 | indexserver  |         2 |       1 | MFZ_node1 | node02 |     30043 |         2 | MFZ_node2 | YES           | SYNC        | ACTIVE      |                |
+
+status system replication site &quot;2&quot;: ACTIVE
+overall system replication status: ACTIVE
+
+Local System Replication State
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mode: PRIMARY
+site id: 1
+site name: MFZ_node1
+</code></pre>
+<h2 id="cluster-configuration">Cluster configuration<a class="headerlink" href="#cluster-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="infrastructure">Infrastructure<a class="headerlink" href="#infrastructure" title="Permanent link">&para;</a></h3>
+<p>First, we need to define the properties for the cluster to works correctly with the Hana configuration.</p>
+<pre><code>cat &lt;&lt;EOF &gt; /tmp/crm_01.txt
+property cib-bootstrap-options: \
+        no-quorum-policy=ignore \
+        have-watchdog=true \
+        stonith-enabled=true \
+        stonith-action=reboot \
+        stonith-timeout=150s
+rsc_defaults rsc-options: \
+        resource-stickiness=1000 \
+        migration-threshold=5000
+op_defaults op-options: \
+        timeout=60
+EOF
+</code></pre>
+<p>And now, load the configuration in the CIB with :</p>
+<pre><code>crm configure load update /tmp/crm_01.txt
+</code></pre>
+<h3 id="stonith">Stonith<a class="headerlink" href="#stonith" title="Permanent link">&para;</a></h3>
+<p>Definition of the parameter of SBD</p>
+<pre><code>cat &lt;&lt; EOF &gt; /tmp/crm_02.txt
+primitive stonith-sbd stonith:external/sbd \
+        params pcmk_delay_max=15 \
+        op monitor interval=20 timeout=20
+EOF
+</code></pre>
+<p>And now, load the configuration in the CIB with :</p>
+<pre><code>crm configure load update /tmp/crm_02.txt
+</code></pre>
+<h3 id="the-ping-of-the-gw">The ping of the GW<a class="headerlink" href="#the-ping-of-the-gw" title="Permanent link">&para;</a></h3>
+<p>You have to change the IP with the default gateway</p>
+<pre><code>cat &lt;&lt; EOF &gt; /tmp/crm_03.txt
+primitive ping_the_gw ocf:pacemaker:ping \
+        params host_list=10.117.158.1 multiplier=2000 dampen=60 \
+        op start interval=0 timeout=60 \
+        op stop interval=0 timeout=20 \
+        op monitor interval=10 timeout=60
+clone cln_ping_the_gw ping_the_gw \
+        meta interleave=true
+EOF
+</code></pre>
+<p>And now, load the configuration in the CIB with :</p>
+<pre><code>crm configure load update /tmp/crm_03.txt
+</code></pre>
+<h3 id="configuration-agents-for-saphana-and-saphanatopology">Configuration agents for SAPHana and SAPHanaTopology<a class="headerlink" href="#configuration-agents-for-saphana-and-saphanatopology" title="Permanent link">&para;</a></h3>
+<p>For SAPHanaTopology</p>
+<pre><code>cat &lt;&lt; EOF &gt; /tmp/crm_04.txt
+primitive rsc_SAPHanaTopology_MFZ_HDB00 ocf:suse:SAPHanaTopology \
+        operations \$id=rsc_sap2_MFZ_HDB00-operations \
+        op monitor interval=10 timeout=600 \
+        op start interval=0 timeout=600 \
+        op stop interval=0 timeout=300 \
+        params SID=MFZ InstanceNumber=00
+clone cln_SAPHanaTopology_MFZ_HDB00 rsc_SAPHanaTopology_MFZ_HDB00 \
+        meta clone-node-max=1 interleave=true
+EOF
+</code></pre>
+<p>And now, load the configuration in the CIB with :</p>
+<pre><code>crm configure load update /tmp/crm_04.txt
+</code></pre>
+<p>For SAPHana</p>
+<pre><code>cat &lt;&lt; EOF &gt; /tmp/crm_05.txt
+primitive rsc_SAPHana_MFZ_HDB00 ocf:suse:SAPHana \
+        operations \$id=rsc_sap_MFZ_HDB00-operations \
+        op start interval=0 timeout=3600 \
+        op stop interval=0 timeout=3600 \
+        op promote interval=0 timeout=3600 \
+        op monitor interval=60 role=Master timeout=700 \
+        op monitor interval=61 role=Slave timeout=700 \
+        params SID=MFZ InstanceNumber=00 PREFER_SITE_TAKEOVER=true DUPLICATE_PRIMARY_TIMEOUT=7200 AUTOMATED_REGISTER=true
+ms msl_SAPHana_MFZ_HDB00 rsc_SAPHana_MFZ_HDB00 \
+        meta clone-max=2 clone-node-max=1 interleave=true is-managed=true target-role=Master
+EOF
+</code></pre>
+<p>And now, load the configuration in the CIB with :</p>
+<pre><code>crm configure load update /tmp/crm_05.txt
+</code></pre>
+<h3 id="configuration-ip-for-the-hana-db-service">Configuration IP for the Hana DB service<a class="headerlink" href="#configuration-ip-for-the-hana-db-service" title="Permanent link">&para;</a></h3>
+<pre><code>cat&lt;&lt; EOF &gt; /tmp/crm_06.txt
+primitive rsc_ip_MFZ_HDB00 IPaddr2 \
+        operations \$id=rsc_ip_MFZ_HDB00-operations \
+        op monitor interval=10s timeout=20s \
+        params ip=10.117.158.18
+EOF
+</code></pre>
+<p>And now, load the configuration in the CIB with :</p>
+<pre><code>crm configure load update /tmp/crm_06.txt
+</code></pre>
+<h3 id="define-constraints-colocation-and-order">Define Constraints, Colocation and order<a class="headerlink" href="#define-constraints-colocation-and-order" title="Permanent link">&para;</a></h3>
+<pre><code>cat &lt;&lt; EOF &gt; /tmp/crm_07.txt
+colocation col_saphana_ip_MFZ_HDB00 2000: rsc_ip_MFZ_HDB00:Started msl_SAPHana_MFZ_HDB00:Master
+location loc_prefGW_HANA msl_SAPHana_MFZ_HDB00 \
+        rule -inf: not_defined pingd or pingd lte 0
+order ord_SAPHana_MFZ_HDB00 Optional: cln_SAPHanaTopology_MFZ_HDB00 msl_SAPHana_MFZ_HDB00
+EOF
+</code></pre>
+<p>And now, load the configuration in the CIB with :</p>
+<pre><code>crm configure load update /tmp/crm_07.txt
+</code></pre>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../OBS/OBS_private/" class="md-footer__link md-footer__link--prev" aria-label="Previous: OBS private instance" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              OBS private instance
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../uncluster_an_existing_system/" class="md-footer__link md-footer__link--next" aria-label="Next: Uncluster Pacemaker Cluster" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Uncluster Pacemaker Cluster
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["search.highlight", "tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.756773cc.min.js"></script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
