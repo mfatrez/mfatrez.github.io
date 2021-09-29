@@ -4,7 +4,7 @@ date: 2021-09-15
 draft: true
 ---
 
-# Installation de l'appliance
+# OBS private instance Installation
 
 ## Installation / Mise à jour
 
@@ -50,13 +50,13 @@ nuc:~ # lvs -a -o +devices
   worker_swap_4 OBS -wi-a----- 512.00m                                                     /dev/sda1(40288)
 ```
 
-# users management
+## Users management
 
-## Création d'utilisateurs
+### Création d'utilisateurs
 
 Créer un user via l'interface web https://nuc.mon-lab.org
 
-### Donner le droit d'administration OBS
+#### Donner le droit d'administration OBS
 
 Pour donner les droits d'admin a un user :
 
@@ -66,7 +66,7 @@ nuc:/srv/www/obs/api # bundle exec rake user:give_admin_rights mfatrez RAILS_ENV
 Making user 'mfatrez' an admin
 ```
 
-# Ajouter une distribution
+## Ajouter une distribution
 
 récupérer le fichier [obs_mirror_project](https://raw.githubusercontent.com/openSUSE/open-build-service/master/dist/obs_mirror_project)
 
